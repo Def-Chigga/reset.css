@@ -1,0 +1,127 @@
+/**
+ * 现代 CSS 重置样式文件
+ * 融合了 normalize.css 的标准化、reset.css 的彻底性，以及现代开发实践
+ * 目标：提供一致、干净、可访问的样式基础，便于后续定制
+ */
+
+/* 1. 使用更直观的盒模型，并确保所有元素继承此设置 */
+html {
+  box-sizing: border-box;
+  /* 可选的基准字体大小，便于使用 rem 单位 */
+  font-size: 16px;
+  /* 平滑滚动 */
+  scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit; /* 继承 html 的 box-sizing 设置 */
+}
+
+/* 2. 移除所有元素的默认外边距和内边距，为布局提供绝对起点 */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+dl,
+dd,
+ol,
+ul,
+figure,
+figcaption,
+hr,
+fieldset,
+legend,
+textarea,
+input,
+button,
+select {
+  margin: 0;
+  padding: 0;
+}
+
+/* 3. 为 body 元素设置一些基本样式，这些是可自定义的 */
+body {
+  line-height: 1.5; /* 可访问性更好的行高 */
+  -webkit-font-smoothing: antialiased; /* 在 Mac OS 上改善字体渲染 */
+  -moz-osx-font-smoothing: grayscale; /* 在 Mac OS 上改善字体渲染 */
+  /* 注意：字体族、颜色、背景色应在具体项目中指定 */
+}
+
+/* 4. 媒体元素默认响应式 */
+img,
+picture,
+video,
+canvas,
+svg {
+  max-width: 100%; /* 防止溢出容器 */
+  height: auto; /* 保持宽高比 */
+}
+
+/* 5. 改善表单控件的默认样式，使其更易于自定义 */
+button,
+input,
+select,
+textarea {
+  font: inherit; /* 继承父元素的字体设置 */
+  color: inherit; /* 继承父元素的颜色 */
+  background-color: transparent; /* 移除默认背景 */
+  border: none; /* 移除默认边框，方便自定义 */
+}
+
+/* 6. 按钮和交互元素的可访问性优化 */
+button {
+  cursor: pointer; /* 明确显示可点击性 */
+  /* 移除默认边框和背景可能已在上面处理 */
+}
+
+/* 7. 链接样式重置，通常需要根据设计定制 */
+a {
+  text-decoration: none; /* 移除默认下划线 */
+  color: inherit; /* 继承颜色而非使用浏览器默认蓝色 */
+  /* 注意：悬停状态应在项目样式中定义 */
+}
+
+/* 8. 列表样式重置（通常需要移除） */
+ol,
+ul {
+  list-style: none;
+}
+
+/* 9. 引号元素重置 */
+blockquote,
+q {
+  quotes: none; /* 移除默认引号 */
+}
+
+/* 10. 表格元素重置（可选，若项目涉及表格） */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* 11. 可访问性：为通过键盘导航的用户保留焦点环 */
+/* 考虑使用 :focus-visible 来为键盘焦点而非鼠标焦点添加样式 */
+:where(:focus-visible) {
+  outline: 2px solid #007acc; /* 使用你的主题色 */
+  outline-offset: 2px;
+}
+
+/* 12. 减少运动偏好（可选，尊重用户设置） */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

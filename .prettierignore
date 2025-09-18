@@ -1,0 +1,13 @@
+node_modules
+dist
+coverage
+.reset.css
+*.min.js
+.idea
+.vscode
+.git
+.hg
+.svn
+.DS_Store
+*.log
+pnpm-lock.yaml

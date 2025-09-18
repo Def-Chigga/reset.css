@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>现代化CSS重置与规范化方案</title>
+    <link rel="stylesheet" href="./reset.css" />
+    <style>
+      /* ===== 演示样式 ===== */
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 30px;
+        background: linear-gradient(135deg, #2c3e50, #1a2530);
+        color: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        font-size: 2.8rem;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+      }
+
+      h2 {
+        font-size: 2.2rem;
+        margin: 2.5rem 0 1.2rem;
+        color: #2c3e50;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #3498db;
+      }
+
+      h3 {
+        font-size: 1.8rem;
+        margin: 2rem 0 1rem;
+        color: #34495e;
+      }
+
+      .intro {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        color: #7f8c8d;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin: 2rem 0;
+      }
+
+      .example {
+        background: white;
+        border-radius: 10px;
+        padding: 1.8rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+        border: 1px solid #eaeaea;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+
+      .example:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .example-title {
+        font-weight: 700;
+        margin-bottom: 1.2rem;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+        font-size: 1.3rem;
+      }
+
+      .example-title::before {
+        content: '•';
+        color: #3498db;
+        font-size: 2.2rem;
+        margin-right: 0.7rem;
+        line-height: 1;
+      }
+
+      code {
+        background-color: #f1f1f1;
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-family: 'Fira Code', monospace;
+        color: #e74c3c;
+        font-size: 0.9em;
+      }
+
+      pre {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 1.2rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 1.5rem 0;
+        font-family: 'Fira Code', monospace;
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      .btn {
+        display: inline-block;
+        background: #3498db;
+        color: white;
+        padding: 0.8rem 1.6rem;
+        border-radius: 6px;
+        margin: 0.5rem 0.5rem 0.5rem 0;
+        transition: all 0.2s;
+        text-align: center;
+        cursor: pointer;
+        font-weight: 500;
+        border: none;
+      }
+
+      .btn:hover {
+        background: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .btn-secondary {
+        background: #95a5a6;
+      }
+
+      .btn-secondary:hover {
+        background: #7f8c8d;
+      }
+
+      .form-group {
+        margin-bottom: 1.2rem;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.6rem;
+        font-weight: 500;
+        color: #2c3e50;
+      }
+
+      input,
+      textarea,
+      select {
+        border: 1px solid #ddd;
+        padding: 0.7rem;
+        border-radius: 6px;
+        margin: 0.5rem 0;
+        width: 100%;
+        max-width: 320px;
+        font-family: inherit;
+        transition: border-color 0.2s;
+      }
+
+      input:focus,
+      textarea:focus,
+      select:focus {
+        border-color: #3498db;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 4rem;
+        padding: 2.5rem;
+        color: #7f8c8d;
+        border-top: 1px solid #eee;
+      }
+
+      .compatibility-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 2.5rem 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .compatibility-table th,
+      .compatibility-table td {
+        padding: 1rem;
+        text-align: left;
+        border: 1px solid #e0e0e0;
+      }
+
+      .compatibility-table th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        color: #2c3e50;
+      }
+
+      .compatibility-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      .feature-badge {
+        display: inline-block;
+        padding: 0.35rem 0.7rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-right: 0.7rem;
+        margin-bottom: 0.7rem;
+      }
+
+      .badge-primary {
+        background-color: #3498db;
+        color: white;
+      }
+
+      .badge-secondary {
+        background-color: #95a5a6;
+        color: white;
+      }
+
+      .badge-success {
+        background-color: #2ecc71;
+        color: white;
+      }
+
+      .library-source {
+        background: #e7f5ff;
+        border-left: 5px solid #3498db;
+        padding: 2rem;
+        border-radius: 8px;
+        margin: 2.5rem 0;
+      }
+
+      .library-source h3 {
+        color: #2c3e50;
+        margin-bottom: 1.2rem;
+        font-size: 1.5rem;
+      }
+
+      .feature-list {
+        columns: 2;
+        column-gap: 2.5rem;
+      }
+
+      .feature-list li {
+        margin-bottom: 0.8rem;
+        break-inside: avoid;
+        padding-left: 1.2rem;
+        position: relative;
+      }
+
+      .feature-list li::before {
+        content: '•';
+        color: #3498db;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+      }
+
+      .code-container {
+        background: #2d2d2d;
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 2rem 0;
+      }
+
+      .code-header {
+        background: #23241f;
+        color: #f8f8f2;
+        padding: 0.8rem 1.2rem;
+        font-family: 'Fira Code', monospace;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .code-header span {
+        display: flex;
+        align-items: center;
+      }
+
+      .code-header span::before {
+        content: '';
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #ff5f56;
+        margin-right: 8px;
+        box-shadow:
+          20px 0 0 #ffbd2e,
+          40px 0 0 #27ca3f;
+      }
+
+      .code-content {
+        padding: 1.5rem;
+        overflow-x: auto;
+      }
+
+      @media (max-width: 768px) {
+        .feature-list {
+          columns: 1;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        h1 {
+          font-size: 2.2rem;
+        }
+
+        h2 {
+          font-size: 1.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <h1>现代化CSS重置与规范化方案</h1>
+      <p>融合Reset.css、Normalize.css和Sanitize.css的优点，提供现代开发体验</p>
+    </header>
+
+    <div class="intro">
+      <p>
+        此CSS重置方案深度整合了多种流行重置库的优点，保留Reset.css的彻底性，融入Normalize.css的跨浏览器一致性，添加Sanitize.css的现代特性，并采用:where()选择器降低特异性。
+      </p>
+    </div>
+
+    <div class="library-source">
+      <h3>方案核心特性</h3>
+      <ul class="feature-list">
+        <li><strong>Reset.css核心</strong> - 彻底的元素样式重置，提供绝对起点</li>
+        <li><strong>Normalize.css优势</strong> - 跨浏览器一致性修复与标准化</li>
+        <li><strong>Sanitize.css特性</strong> - 系统字体优化与表单控件增强</li>
+        <li><strong>现代CSS特性</strong> - :where选择器、逻辑属性等</li>
+        <li><strong>可访问性支持</strong> - 焦点指示、减少运动偏好等</li>
+        <li><strong>性能优化</strong> - 精简选择器、减少重复代码</li>
+        <li><strong>响应式设计</strong> - 媒体查询与流式布局支持</li>
+        <li><strong>开发体验</strong> - 清晰的代码结构与注释</li>
+      </ul>
+    </div>
+
+    <h2>核心优化特性</h2>
+    <div class="grid">
+      <div class="example">
+        <div class="example-title">Reset.css核心保留</div>
+        <p>完整保留Reset.css的核心重置功能，确保彻底的元素样式重置，为项目提供绝对起点。</p>
+        <div>
+          <span class="feature-badge badge-primary">边距重置</span>
+          <span class="feature-badge badge-primary">内边距重置</span>
+          <span class="feature-badge badge-primary">边框重置</span>
+          <span class="feature-badge badge-primary">字体继承</span>
+        </div>
+      </div>
+
+      <div class="example">
+        <div class="example-title">Normalize.css标准化</div>
+        <p>汲取Normalize.css的跨浏览器一致性修复，解决浏览器默认样式差异，确保一致渲染。</p>
+        <div>
+          <span class="feature-badge badge-secondary">表单一致性</span>
+          <span class="feature-badge badge-secondary">字体渲染</span>
+          <span class="feature-badge badge-secondary">HTML5元素</span>
+          <span class="feature-badge badge-secondary">行高标准化</span>
+        </div>
+      </div>
+
+      <div class="example">
+        <div class="example-title">现代增强特性</div>
+        <p>添加现代CSS特性和开发实践，提高开发体验和用户体验，关注可访问性和性能。</p>
+        <div>
+          <span class="feature-badge badge-success">:where选择器</span>
+          <span class="feature-badge badge-success">减少运动</span>
+          <span class="feature-badge badge-success">可访问性</span>
+          <span class="feature-badge badge-success">打印优化</span>
+        </div>
+      </div>
+    </div>
+
+    <h2>浏览器兼容性</h2>
+    <table class="compatibility-table">
+      <thead>
+        <tr>
+          <th>特性</th>
+          <th>Chrome</th>
+          <th>Firefox</th>
+          <th>Safari</th>
+          <th>Edge</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Reset.css核心</td>
+          <td>✅ 完全支持</td>
+          <td>✅ 完全支持</td>
+          <td>✅ 完全支持</td>
+          <td>✅ 完全支持</td>
+        </tr>
+        <tr>
+          <td>Normalize.css修复</td>
+          <td>✅ 完全支持</td>
+          <td>✅ 完全支持</td>
+          <td>✅ 完全支持</td>
+          <td>✅ 完全支持</td>
+        </tr>
+        <tr>
+          <td>:where()选择器</td>
+          <td>88+ ✅</td>
+          <td>78+ ✅</td>
+          <td>14+ ✅</td>
+          <td>88+ ✅</td>
+        </tr>
+        <tr>
+          <td>减少运动偏好</td>
+          <td>74+ ✅</td>
+          <td>64+ ✅</td>
+          <td>10.1+ ✅</td>
+          <td>79+ ✅</td>
+        </tr>
+        <tr>
+          <td>逻辑属性</td>
+          <td>89+ ✅</td>
+          <td>66+ ✅</td>
+          <td>15+ ✅</td>
+          <td>89+ ✅</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>样式演示</h2>
+
+    <div class="grid">
+      <div class="example">
+        <div class="example-title">排版元素</div>
+        <h3>标题示例</h3>
+        <p>
+          这是一个段落，包含<strong>加粗文本</strong>、<em>斜体文本</em>和<code>代码片段</code>，以及一个<a
+            href="#"
+            >示例链接</a
+          >。
+        </p>
+        <blockquote>这是一个引用块，展示引用的样式。</blockquote>
+        <pre>
+// 代码块示例
+function greet(name) {
+  return `Hello, ${name}!`;
+}</pre
+        >
+      </div>
+
+      <div class="example">
+        <div class="example-title">表单元素</div>
+        <div class="form-group">
+          <label for="text-input">文本输入框</label>
+          <input type="text" id="text-input" placeholder="请输入内容" />
+        </div>
+        <div class="form-group">
+          <label for="textarea">文本区域</label>
+          <textarea id="textarea" placeholder="请输入多行文本"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="select">选择框</label>
+          <select id="select">
+            <option>选项1</option>
+            <option>选项2</option>
+            <option>选项3</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>单选按钮：</label>
+          <input type="radio" id="radio1" name="radio-group" />
+          <label for="radio1">选项一</label>
+          <input type="radio" id="radio2" name="radio-group" />
+          <label for="radio2">选项二</label>
+        </div>
+      </div>
+
+      <div class="example">
+        <div class="example-title">按钮与交互</div>
+        <div>
+          <button class="btn">主要按钮</button>
+          <button class="btn" disabled>禁用按钮</button>
+        </div>
+        <div style="margin-top: 1.2rem">
+          <button class="btn btn-secondary">次要按钮</button>
+        </div>
+        <div style="margin-top: 1.2rem">
+          <input type="checkbox" id="checkbox" />
+          <label for="checkbox">复选框示例</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="example">
+      <div class="example-title">列表与表格</div>
+      <div style="display: flex; gap: 2rem; flex-wrap: wrap">
+        <div>
+          <h4>无序列表</h4>
+          <ul>
+            <li>列表项1</li>
+            <li>列表项2</li>
+            <li>列表项3</li>
+          </ul>
+        </div>
+        <div>
+          <h4>有序列表</h4>
+          <ol>
+            <li>列表项1</li>
+            <li>列表项2</li>
+            <li>列表项3</li>
+          </ol>
+        </div>
+        <div>
+          <h4>表格示例</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>职业</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>张三</td>
+                <td>28</td>
+                <td>设计师</td>
+              </tr>
+              <tr>
+                <td>李四</td>
+                <td>32</td>
+                <td>开发者</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <h2>代码实现</h2>
+    <div class="code-container">
+      <div class="code-header">
+        <span>css-reset.css</span>
+      </div>
+      <div class="code-content">
+        <pre><code>/* ===== 现代化CSS重置与规范化方案 ===== */
+
+/* 1. 核心元素重置 - 精简版 */
+:where(html, body,
+       h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+       a, code, em, img, strong,
+       ol, ul, li, dl, dt, dd,
+       form, fieldset, legend, label,
+       table, caption, tbody, tfoot, thead, tr, th, td,
+       article, aside, details, figcaption, figure,
+       footer, header, hgroup, main, menu, nav, section) {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5元素显示设置 */
+:where(article, aside, details, figcaption, figure,
+       footer, header, hgroup, main, menu, nav, section) {
+    display: block;
+}
+
+/* 2. 盒模型与文档流优化 */
+:where(html) {
+    box-sizing: border-box;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    line-height: 1.15;
+}
+
+:where(*, ::before, ::after) {
+    box-sizing: inherit;
+    background-repeat: no-repeat;
+}
+
+/* 3. 主体与排版增强 */
+:where(body) {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* 更多样式规则... */</code></pre>
+      </div>
+    </div>
+
+    <footer>
+      <p>现代化CSS重置与规范化方案 | 融合多种重置库优点，提供现代开发体验</p>
+      <p>保留Reset.css的彻底性，融入Normalize.css的一致性，添加Sanitize.css的现代特性</p>
+    </footer>
+  </body>
+</html>
