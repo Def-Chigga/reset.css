@@ -1,47 +1,7 @@
 {
   "name": "@defchigga/reset.css",
-  "version": "1.0.2",
-  "description": "一个现代、简洁的CSS重置和规范化样式库，为Web项目提供一致的样式基础。整合了多种CSS重置方案的优点，提供跨浏览器兼容性和一致的默认样式。",
-  "main": "reset.css",
-  "style": "reset.css",
-  "module": "reset.css",
-  "types": "reset.css.d.ts",
-  "exports": {
-    ".": {
-      "style": "./reset.css",
-      "import": "./reset.css",
-      "require": "./reset.css",
-      "default": "./reset.css"
-    },
-    "./package.json": "./package.json"
-  },
-  "directories": {
-    "lib": "lib",
-    "dist": "dist"
-  },
-  "files": [
-    "reset.css",
-    "reset.css.d.ts",
-    "package.json",
-    "README.md",
-    "LICENSE.md",
-    "CHANGELOG.md",
-    "CONTRIBUTING.md"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Def-Chigga/lib-reset.css.git"
-  },
-  "homepage": "https://github.com/Def-Chigga/lib-reset.css",
-  "bugs": {
-    "url": "https://github.com/Def-Chigga/lib-reset.css/issues"
-  },
-  "scripts": {
-    "dev": "rollup -c -w",
-    "build": "rollup -c",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
-  },
+  "version": "1.0.3",
+  "description": "A modern and concise CSS reset and normalization library that provides a consistent styling foundation for web projects.",
   "keywords": [
     "css",
     "reset",
@@ -51,11 +11,46 @@
     "web",
     "frontend"
   ],
-  "author": "DefChigga <defchigga@qq.com>",
+  "main": "reset.css",
+  "style": "reset.css",
+  "module": "reset.css",
+  "types": "reset.css.d.ts",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    ".": {
+      "style": "./reset.css",
+      "import": "./reset.css",
+      "require": "./reset.css",
+      "default": "./reset.css"
+    }
+  },
+  "files": [
+    "reset.css",
+    "reset.css.d.ts"
+  ],
   "license": "MIT",
-  "engines": {
-    "node": ">=14.0.0",
-    "npm": ">=6.0.0"
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "rollup -c",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "author": "DefChigga <defchigga@qq.com>",
+  "homepage": "https://github.com/Def-Chigga/reset.css#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Def-Chigga/reset.css.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Def-Chigga/reset.css/issues",
+    "email": "defchigga@qq.com"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest",
+    "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
     "postcss": "^8.5.6",
@@ -64,5 +59,9 @@
     "rollup-plugin-clean": "^1.0.0",
     "rollup-plugin-css-only": "^4.5.5",
     "rollup-plugin-postcss": "^4.0.2"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
   }
 }

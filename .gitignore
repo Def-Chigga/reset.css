@@ -50,7 +50,6 @@ bundle.js
 # Package manager files
 .npm
 .yarn-integrity
-pnpm-lock.yaml
 
 # OS generated files
 Thumbs.db
