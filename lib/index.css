@@ -5,8 +5,8 @@
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
   font: inherit;
+  font-size: 100%;
   vertical-align: baseline;
 }
 
@@ -43,7 +43,6 @@
 
 /* 4. 媒体元素处理 */
 :where(img, picture, video, canvas, svg) {
-  display: block;
   max-width: 100%;
   height: auto;
 }
