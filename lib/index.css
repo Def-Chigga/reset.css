@@ -33,7 +33,6 @@
 /* 3. 主体与排版增强 */
 :where(body) {
   box-sizing: border-box; /* 默认怪异（IE）盒模型 */
-  min-height: 100vh;
   line-height: inherit;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -42,7 +41,7 @@
 }
 
 /* 4. 媒体元素处理 */
-:where(img, picture, video, canvas, svg) {
+:where(img, picture, video) {
   max-width: 100%;
   height: auto;
 }
